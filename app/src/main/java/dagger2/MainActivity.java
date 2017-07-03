@@ -12,8 +12,12 @@ import com.lychee.jtest.R;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
 import dagger2.di.annotation.qualifier.Net1;
+import dagger2.di.annotation.qualifier.Net2;
+import dagger2.di.annotation.qualifier.Net3;
+import dagger2.di.component.DaggerActSubComponent;
+import dagger2.di.component.DaggerAppComponent;
+import dagger2.di.module.ActModule;
 import dagger2.hulk.LogUtil;
 import dagger2.hulk.NetWorkUtil;
 import dagger2.ui.Lychee1Activity;
@@ -26,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     @Inject
-    @Net1
+    @Net2
     NetWorkUtil netWorkUtil;
     @Inject
     LogUtil logUtil;
@@ -39,8 +43,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
+//        MyApplication.getAppComponent().plusAct().inject(this);
+        DaggerActSubComponent.builder()
+                .appComponent(MyApplication.getAppComponent())
+                .actModule(new ActModule(this))
+                .build()
+                .inject(this);
         setContentView(R.layout.activity_main);
 
         setTitle(TAG);
@@ -62,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        tv.setText(String.format("%s , %s\n%s , %s",
-                netWorkUtil, netWorkUtil.getResult(),
+        tv.setText(String.format("%s , %s , %s\n%s , %s",
+                netWorkUtil, netWorkUtil.getResult(), netWorkUtil.getContext(),
                 logUtil, logUtil.getMsg()));
     }
 

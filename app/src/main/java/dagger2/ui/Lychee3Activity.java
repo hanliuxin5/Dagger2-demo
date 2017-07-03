@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.lychee.jtest.R;
@@ -12,41 +11,50 @@ import com.lychee.jtest.R;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import dagger.android.AndroidInjection;
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
+import dagger2.MyApplication;
+import dagger2.di.annotation.qualifier.Net2;
 import dagger2.di.annotation.qualifier.Net3;
+import dagger2.di.component.ActSubComponent;
+import dagger2.di.component.DaggerActSubComponent;
+import dagger2.di.module.ActModule;
 import dagger2.hulk.Boss;
 import dagger2.hulk.LogUtil;
 import dagger2.hulk.NetWorkUtil;
 
-public class Lychee3Activity extends AppCompatActivity implements HasSupportFragmentInjector {
+public class Lychee3Activity extends AppCompatActivity {
 
 
     private static final String TAG = "Lychee3Activity";
-    @Inject
-    DispatchingAndroidInjector<Fragment> fragmentInjector;
 
     @Inject
-    @Net3
+    @Net2
     NetWorkUtil netWorkUtil;
     @Inject
-    @Net3
+    @Net2
     NetWorkUtil netWorkUtil2;
     @Inject
     LogUtil logUtil;
     @Inject
-    @Named("boss1")
+    @Named("boss2")
     Boss boss;
 
 
     TextView tv;
+    ActSubComponent component;
+
+    public ActSubComponent getComponent() {
+        return component;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
+//        MyApplication.getAppComponent().plusAct().inject(this);
+        component = DaggerActSubComponent.builder()
+                .appComponent(MyApplication.getAppComponent())
+                .actModule(new ActModule(this))
+                .build();
+        component.inject(this);
         setContentView(R.layout.activity_lychee1);
 
         setTitle(TAG);
@@ -77,9 +85,4 @@ public class Lychee3Activity extends AppCompatActivity implements HasSupportFrag
                 boss.getAge()));
     }
 
-
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return fragmentInjector;
-    }
 }

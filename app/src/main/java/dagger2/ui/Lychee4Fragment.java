@@ -15,8 +15,11 @@ import com.lychee.jtest.R;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import dagger.android.support.AndroidSupportInjection;
+import dagger2.MyApplication;
+import dagger2.di.annotation.qualifier.Net2;
 import dagger2.di.annotation.qualifier.Net3;
+import dagger2.di.component.DaggerActSubComponent;
+import dagger2.di.module.ActModule;
 import dagger2.hulk.Boss;
 import dagger2.hulk.LogUtil;
 import dagger2.hulk.NetWorkUtil;
@@ -54,8 +57,14 @@ public class Lychee4Fragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
-        AndroidSupportInjection.inject(this);
         super.onAttach(context);
+//        MyApplication.getAppComponent().plusFragment().inject(this);
+        DaggerActSubComponent.builder()
+                .appComponent(MyApplication.getAppComponent())
+                .actModule(new ActModule(context))
+                .build()
+                .plusFragment()
+                .inject(this);
     }
 
     @Nullable

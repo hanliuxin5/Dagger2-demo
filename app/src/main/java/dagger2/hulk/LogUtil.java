@@ -1,5 +1,6 @@
 package dagger2.hulk;
 
+import android.app.Application;
 import android.content.Context;
 
 /**
@@ -8,10 +9,10 @@ import android.content.Context;
 
 public class LogUtil {
     private String msg;
-    private Context context;
+    private Application context;
 
 
-    public LogUtil(Context context) {
+    public LogUtil(Application context) {
         this.context = context;
     }
 

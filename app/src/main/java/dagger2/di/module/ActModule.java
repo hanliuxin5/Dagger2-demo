@@ -1,5 +1,6 @@
 package dagger2.di.module;
 
+import android.app.Application;
 import android.content.Context;
 
 
@@ -7,7 +8,9 @@ import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger2.di.annotation.qualifier.Act;
 import dagger2.di.annotation.qualifier.App;
+import dagger2.di.annotation.qualifier.Net2;
 import dagger2.di.annotation.qualifier.Net3;
 import dagger2.di.annotation.scope.PerActivity;
 import dagger2.hulk.Boss;
@@ -18,14 +21,25 @@ import dagger2.hulk.NetWorkUtil;
  */
 @Module
 public class ActModule {
+    private final Context context;
 
+    public ActModule(Context context) {
+
+        this.context = context;
+    }
+
+    @Provides
+    @Act
+    Context context() {
+        return context;
+    }
 
     @Provides
     @PerActivity
-    @Net3
-    static NetWorkUtil providesNetWork3(@App Context context) {
-        NetWorkUtil netWorkUtil = new NetWorkUtil(context);
-        netWorkUtil.setResult("network3");
+    @Net2
+    static NetWorkUtil providesNetWork2(@Act Context context) {
+        NetWorkUtil<Context> netWorkUtil = new NetWorkUtil<>(context);
+        netWorkUtil.setResult("network2");
         return netWorkUtil;
     }
 

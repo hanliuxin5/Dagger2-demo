@@ -1,6 +1,7 @@
 package dagger2.di.module;
 
 
+import android.app.Application;
 import android.content.Context;
 
 import javax.inject.Singleton;
@@ -18,29 +19,33 @@ import dagger2.hulk.NetWorkUtil;
  */
 @Module
 public class AppModule {
+//    private final Context mContext;
+//
+//    public AppModule(Context context) {
+//        mContext = context;
+//    }
+//
+//    @Provides
+//    @Singleton
+//    @App
+//    Context providesContext() {
+//        return mContext;
+//    }
 
     @Provides
     @Singleton
     @Net1
-    static NetWorkUtil providesNetWork1(@App Context context) {
-        NetWorkUtil netWorkUtil = new NetWorkUtil(context);
+    NetWorkUtil providesNetWork1(@App Application application) {
+        NetWorkUtil<Application> netWorkUtil = new NetWorkUtil<>(application);
         netWorkUtil.setResult("network1");
         return netWorkUtil;
     }
 
-    @Provides
-    @Singleton
-    @Net2
-    static NetWorkUtil providesNetWork2(@App Context context) {
-        NetWorkUtil netWorkUtil = new NetWorkUtil(context);
-        netWorkUtil.setResult("network2");
-        return netWorkUtil;
-    }
 
     @Provides
     @Singleton
-    static LogUtil providesLog(@App Context context) {
-        LogUtil logUtil = new LogUtil(context);
+    LogUtil providesLog(@App Application application) {
+        LogUtil logUtil = new LogUtil(application);
         logUtil.setMsg("im log");
         return logUtil;
     }

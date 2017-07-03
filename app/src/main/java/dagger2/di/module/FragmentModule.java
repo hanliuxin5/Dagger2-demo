@@ -1,12 +1,16 @@
 package dagger2.di.module;
 
+import android.app.Application;
 import android.content.Context;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger2.di.annotation.qualifier.Act;
 import dagger2.di.annotation.qualifier.App;
+import dagger2.di.annotation.qualifier.Net2;
 import dagger2.di.annotation.qualifier.Net3;
 import dagger2.di.annotation.scope.PerActivity;
 import dagger2.di.annotation.scope.PerFragment;
@@ -18,13 +22,13 @@ import dagger2.hulk.NetWorkUtil;
  */
 @Module
 public class FragmentModule {
-
+    
     @Provides
     @PerFragment
     @Net3
-    static NetWorkUtil providesNetWork4(@App Context context) {
-        NetWorkUtil netWorkUtil = new NetWorkUtil(context);
-        netWorkUtil.setResult("network4");
+    static NetWorkUtil providesNetWork3(@Act Context context) {
+        NetWorkUtil<Context> netWorkUtil = new NetWorkUtil<>(context);
+        netWorkUtil.setResult("network3");
         return netWorkUtil;
     }
 
