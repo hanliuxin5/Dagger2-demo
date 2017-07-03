@@ -34,7 +34,7 @@ public class ActModule {
     @Named("boss1")
     static Boss providesBoss() {
         Boss boss = new Boss();
-        boss.setAge("" + Math.random() * 25);
+        boss.setAge("" + Math.random() * 26);
         return boss;
     }
 
@@ -42,7 +42,7 @@ public class ActModule {
     @Named("boss2")
     static Boss providesBoss2() {
         Boss boss = new Boss();
-        boss.setAge("" + Math.random() * 25);
+        boss.setAge("" + Math.random() * 26);
         return boss;
     }
 
