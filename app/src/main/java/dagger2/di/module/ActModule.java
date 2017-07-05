@@ -21,18 +21,18 @@ import dagger2.hulk.NetWorkUtil;
  */
 @Module
 public class ActModule {
-    private final Context context;
-
-    public ActModule(Context context) {
-
-        this.context = context;
-    }
-
-    @Provides
-    @Act
-    Context context() {
-        return context;
-    }
+//    private final Context context;
+//
+//    public ActModule(Context context) {
+//
+//        this.context = context;
+//    }
+//
+//    @Provides
+//    @Act
+//    Context context() {
+//        return context;
+//    }
 
     @Provides
     @PerActivity

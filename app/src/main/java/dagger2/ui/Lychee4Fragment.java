@@ -18,7 +18,7 @@ import javax.inject.Named;
 import dagger2.MyApplication;
 import dagger2.di.annotation.qualifier.Net2;
 import dagger2.di.annotation.qualifier.Net3;
-import dagger2.di.component.DaggerActSubComponent;
+import dagger2.di.component.DaggerActComponent;
 import dagger2.di.module.ActModule;
 import dagger2.hulk.Boss;
 import dagger2.hulk.LogUtil;
@@ -59,9 +59,15 @@ public class Lychee4Fragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 //        MyApplication.getAppComponent().plusFragment().inject(this);
-        DaggerActSubComponent.builder()
+//        DaggerActSubComponent.builder()
+//                .appComponent(MyApplication.getAppComponent())
+//                .actModule(new ActModule(context))
+//                .build()
+//                .plusFragment()
+//                .inject(this);
+        DaggerActComponent.builder()
                 .appComponent(MyApplication.getAppComponent())
-                .actModule(new ActModule(context))
+                .ActContext(context)
                 .build()
                 .plusFragment()
                 .inject(this);

@@ -15,9 +15,11 @@ import javax.inject.Inject;
 import dagger2.di.annotation.qualifier.Net1;
 import dagger2.di.annotation.qualifier.Net2;
 import dagger2.di.annotation.qualifier.Net3;
-import dagger2.di.component.DaggerActSubComponent;
+import dagger2.di.component.ActComponent;
+import dagger2.di.component.DaggerActComponent;
 import dagger2.di.component.DaggerAppComponent;
 import dagger2.di.module.ActModule;
+import dagger2.hulk.Jedi;
 import dagger2.hulk.LogUtil;
 import dagger2.hulk.NetWorkUtil;
 import dagger2.ui.Lychee1Activity;
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     NetWorkUtil netWorkUtil;
     @Inject
     LogUtil logUtil;
+    @Inject
+    Jedi jedi;
 
     TextView tv;
     Button lychee1;
@@ -45,9 +49,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        MyApplication.getAppComponent().plusAct().inject(this);
-        DaggerActSubComponent.builder()
+//        DaggerActSubComponent.builder()
+//                .appComponent(MyApplication.getAppComponent())
+//                .actModule(new ActModule(this))
+//                .build()
+//                .inject(this);
+        DaggerActComponent.builder()
                 .appComponent(MyApplication.getAppComponent())
-                .actModule(new ActModule(this))
+                .ActContext(this)
                 .build()
                 .inject(this);
         setContentView(R.layout.activity_main);
@@ -71,9 +80,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        tv.setText(String.format("%s , %s , %s\n%s , %s",
+        tv.setText(String.format("%s , %s , %s\n%s , %s\n%s",
                 netWorkUtil, netWorkUtil.getResult(), netWorkUtil.getContext(),
-                logUtil, logUtil.getMsg()));
+                logUtil, logUtil.getMsg(),
+                jedi));
     }
 
     View.OnClickListener clickListener = new View.OnClickListener() {

@@ -11,7 +11,7 @@ import dagger2.ui.Lychee4Fragment;
  */
 @PerFragment
 @Subcomponent(modules = FragmentModule.class)
-public interface FragmentSubComponent {
+public interface FragmentComponent {
 
 
 //    void inject(Lychee3Fragment activity);

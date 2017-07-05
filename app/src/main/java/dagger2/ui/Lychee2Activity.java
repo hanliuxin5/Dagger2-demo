@@ -11,8 +11,9 @@ import javax.inject.Inject;
 import dagger2.MyApplication;
 import dagger2.di.annotation.qualifier.Net1;
 import dagger2.di.annotation.qualifier.Net2;
-import dagger2.di.component.DaggerActSubComponent;
+import dagger2.di.component.DaggerActComponent;
 import dagger2.di.module.ActModule;
+import dagger2.hulk.Jedi;
 import dagger2.hulk.LogUtil;
 import dagger2.hulk.NetWorkUtil;
 
@@ -25,6 +26,8 @@ public class Lychee2Activity extends AppCompatActivity {
     NetWorkUtil netWorkUtil;
     @Inject
     LogUtil logUtil;
+    @Inject
+    Jedi jedi;
 
     TextView tv;
 
@@ -32,9 +35,14 @@ public class Lychee2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        MyApplication.getAppComponent().plusAct().inject(this);
-        DaggerActSubComponent.builder()
+//        DaggerActSubComponent.builder()
+//                .appComponent(MyApplication.getAppComponent())
+//                .actModule(new ActModule(this))
+//                .build()
+//                .inject(this);
+        DaggerActComponent.builder()
                 .appComponent(MyApplication.getAppComponent())
-                .actModule(new ActModule(this))
+                .ActContext(this)
                 .build()
                 .inject(this);
         setContentView(R.layout.activity_lychee1);
@@ -47,8 +55,9 @@ public class Lychee2Activity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        tv.setText(String.format("%s , %s , %s\n%s , %s",
+        tv.setText(String.format("%s , %s , %s\n%s , %s\n%s",
                 netWorkUtil, netWorkUtil.getResult(), netWorkUtil.getContext(),
-                logUtil, logUtil.getMsg()));
+                logUtil, logUtil.getMsg(),
+                jedi));
     }
 }
