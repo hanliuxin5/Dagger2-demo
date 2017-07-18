@@ -1,6 +1,7 @@
 package dagger2_subcomponent;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
@@ -8,7 +9,7 @@ import dagger.Component;
 /**
  * Created by lychee on 17-6-30.
  */
-
+@Singleton
 @Component(modules = MainModule.class)
 public interface MainComponent {
 
@@ -19,6 +20,8 @@ public interface MainComponent {
 
         MainComponent build();
     }
+
+    Lychee getLychee();
 
     SubComponent plus();
 

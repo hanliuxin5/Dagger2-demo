@@ -1,31 +1,28 @@
 package dagger2_subcomponent;
 
 import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Provider;
-
-import dagger.Subcomponent;
 
 /**
  * Created by lychee on 17-6-30.
  */
 
-public class App {
+public class App2 {
 
 
     @Inject
     public Lychee lychee;
     @Inject
     public Lychee lychee2;
+
     @Inject
-    public Emma emma;
+    public Kim kim;
     @Inject
-    public Emma emma2;
-    public App() {
-        DaggerMainComponent.builder()
-                .userName("lychee")
+    public Kim kim2;
+
+    public App2() {
+        DaggerTestComponent.builder()
+                .plusAppComponent(DaggerMainComponent.builder().userName("sss").build())
                 .build()
-                .plus()
                 .inject(this);
     }
 

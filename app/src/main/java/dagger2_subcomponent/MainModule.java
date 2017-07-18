@@ -2,6 +2,7 @@ package dagger2_subcomponent;
 
 import javax.inject.Named;
 import javax.inject.Provider;
+import javax.inject.Singleton;
 
 import dagger.Binds;
 import dagger.Module;
@@ -20,6 +21,7 @@ public class MainModule {
 //    }
 
     @Provides
+    @Singleton
     static Lychee providesLychee(String name) {
         return new Lychee(name);
     }
