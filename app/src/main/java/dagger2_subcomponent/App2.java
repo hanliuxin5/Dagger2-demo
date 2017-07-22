@@ -21,7 +21,14 @@ public class App2 {
 
     public App2() {
         DaggerTestComponent.builder()
-                .plusAppComponent(DaggerMainComponent.builder().userName("sss").build())
+                .plusAppComponent(DaggerMainComponent.builder().userName("sss1111").build())
+                .build()
+                .inject(this);
+    }
+
+    public void reInject(){
+        DaggerTestComponent.builder()
+                .plusAppComponent(DaggerMainComponent.builder().userName("sss2222").build())
                 .build()
                 .inject(this);
     }

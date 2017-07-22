@@ -20,5 +20,11 @@ public class Main {
         System.out.println(act2.kim + "," + act2.kim.getName());
         System.out.println(act2.kim2 + "," + act2.kim2.getName());
 //        System.out.println(act2.emma+","+act2.emma.getName());
+
+        act2.reInject();
+        System.out.println(act2.lychee + "," + act2.lychee.getName());
+        System.out.println(act2.lychee2 + "," + act2.lychee2.getName());
+        System.out.println(act2.kim + "," + act2.kim.getName());
+        System.out.println(act2.kim2 + "," + act2.kim2.getName());
     }
 }
